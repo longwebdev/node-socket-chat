@@ -16,6 +16,12 @@ socket.on("Server-send-list-users", function(data){
         $('#boxContent').append("<div class='user'>"+ item + "</div>")
     })
 })
+//lắng nghe sự kiện message do server trả về
+socket.on("Server-send-message", function(data){
+    $('#listMessage').append(
+        "<div class='ms'>"+ data.un + " : " + data.nd +"</div>"
+    );
+})
 
 $(document).ready(function(){
     
@@ -26,4 +32,22 @@ $(document).ready(function(){
        socket.emit("Client-send-username", $('#txtusername').val())
         
     });
+    //bắt sự kiện cho nét nút logout
+    $('#btnLogout').click(function(){
+        socket.emit("Logout-username");
+        $('#chatForm').hide();
+        $('#loginForm').show(); 
+    });
+    //bắt sự kiện cho nút send message
+    $('#btnSendMessage').click(function(){
+        socket.emit("User-send-message", $("#txtMessage").val());
+    })
+    //bắt sự kiện typing cho input
+    $('#txtMessage').focusin(function(){
+        socket.emit("Typing-message");
+    })
+    //bắt sự kiệm typing out
+    $('#txtMessage').focusout(function(){
+        socket.emit("Typing-message-out");
+    })
 })
