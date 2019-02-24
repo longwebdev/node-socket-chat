@@ -38,11 +38,14 @@ io.on('connection', function(socket){
     });
     //lắng nghe sự kiện Typing cho message
     socket.on("Typing-message", function(){
-        console.log(socket.Username + "Still Typing");
+        console.log(socket.Username + " Stop Typing");
+        var s = socket.Username + "Still Typing";
+        io.sockets.emit("some-one-still-send", s);
     });
     //lắng nghe sự kiện Typing out
-    socket.on("Typing-message-out", function(){
-        console.log(socket.Username + " Stop Typing ");
+    socket.on("Stop-rep-tinnhan", function(){
+        console.log(socket.Username + " Stop Typing");
+        io.sockets.emit("ai-do-da-ngung-go-chu");
     });
 })
 

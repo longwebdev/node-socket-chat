@@ -22,6 +22,14 @@ socket.on("Server-send-message", function(data){
         "<div class='ms'>"+ data.un + " : " + data.nd +"</div>"
     );
 })
+//lắng nghe ai đó đang gõ chữ
+socket.on("some-one-still-send", function(data){
+    $('#thongbao').html(data);
+})
+//lắng nghe ai đó đã ngững gõ chữ
+socket.on("ai-do-da-ngung-go-chu", function(){
+    $('#thongbao').html("");
+})
 
 $(document).ready(function(){
     
@@ -48,6 +56,7 @@ $(document).ready(function(){
     })
     //bắt sự kiệm typing out
     $('#txtMessage').focusout(function(){
-        socket.emit("Typing-message-out");
+        socket.emit("Stop-rep-tinnhan");
     })
+    
 })
